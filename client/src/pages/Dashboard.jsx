@@ -320,7 +320,48 @@ const Dashboard = () => {
                   </div>
                 ) : (
                   <div className="overflow-x-auto">
-                    <table className="data-table">
+                    {/* Mobile Card View (Hidden on medium/large screens) */}
+                    <div className="md:hidden divide-y divide-gray-100 dark:divide-gray-700">
+                      {messages.map((msg, idx) => (
+                        <div key={`mob-${msg._id}`} className={`p-4 ${!msg.isRead ? 'bg-pink-50/40 dark:bg-pink-900/10' : ''}`}>
+                          <div className="flex justify-between items-start mb-2">
+                            <div className="flex items-center gap-2">
+                              {!msg.isRead && <span className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></span>}
+                              <h3 className="font-bold text-gray-900 dark:text-white">{msg.name}</h3>
+                            </div>
+                            <span className="text-xs text-gray-500">
+                              {new Date(msg.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                            </span>
+                          </div>
+                          
+                          <div className="text-sm text-gray-500 dark:text-gray-400 mb-3 space-y-1">
+                            <p><a href={`mailto:${msg.email}`} className="text-primary-500">{msg.email}</a></p>
+                            <p className="font-medium text-gray-700 dark:text-gray-300 truncate">{msg.subject}</p>
+                          </div>
+                          
+                          <div className="flex justify-end gap-2 mt-3 pt-3 border-t border-gray-100 dark:border-gray-700">
+                            <button
+                              onClick={() => {
+                                setViewMessage(msg);
+                                if (!msg.isRead) handleMarkRead(msg._id);
+                              }}
+                              className="px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400"
+                            >
+                              View Details
+                            </button>
+                            <button
+                              onClick={() => confirmDelete(msg._id)}
+                              className="px-3 py-1.5 text-xs font-medium rounded-lg bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Desktop Table View (Hidden on mobile screens) */}
+                    <table className="data-table hidden md:table w-full">
                       <thead>
                         <tr>
                           <th>#</th>
