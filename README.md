@@ -70,7 +70,7 @@ To create an initial admin account:
 cd server
 npm run seed
 ```
-*Default login created: `president@shecanfoundation.org` / `admin123`*
+*Default login created: `president@shecanfoundation.org` / `Admin@123`*
 
 ### 5. Run the Application
 

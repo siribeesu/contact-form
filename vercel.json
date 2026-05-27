@@ -1,34 +1,14 @@
 {
   "version": 2,
-  "builds": [
+  "outputDirectory": "client/dist",
+  "rewrites": [
     {
-      "src": "server/server.js",
-      "use": "@vercel/node"
+      "source": "/api/(.*)",
+      "destination": "/server/server.js"
     },
     {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server/server.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/client/dist/assets/$1"
-    },
-    {
-      "src": "/vite.svg",
-      "dest": "/client/dist/vite.svg"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/dist/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

@@ -142,7 +142,7 @@ const AdminLogin = () => {
           <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
             <p className="text-xs text-blue-600 dark:text-blue-400">
               🔐 Default credentials after seeding: <br />
-              <strong>admin@shecanfoundation.org</strong> / <strong>Admin@123</strong><br />
+              <strong>president@shecanfoundation.org</strong> / <strong>Admin@123</strong><br />
               <span className="text-blue-400 dark:text-blue-500">Change password after first login!</span>
             </p>
           </div>
