@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { useNavigate, Navigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { HiLockClosed, HiMail, HiEye, HiEyeOff } from 'react-icons/hi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { loginAdmin } from '../services/authService';
 import Spinner from '../components/Spinner';
@@ -23,6 +23,15 @@ const AdminLogin = () => {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  // Automatically seed the database in the background when the login page loads!
+  // This guarantees the shecanfoundation account exists without manual steps.
+  useEffect(() => {
+    import('../services/api').then((module) => {
+      const api = module.default;
+      api.get('/auth/seed').catch(() => {}); // silently run in background
+    });
+  }, []);
 
   const {
     register,
