@@ -100,4 +100,28 @@ const logoutAdmin = (req, res) => {
   res.status(200).json({ success: true, message: 'Logged out successfully' });
 };
 
-module.exports = { loginAdmin, loginValidation, getAdminProfile, logoutAdmin };
+// ─── GET /api/auth/seed ───────────────────────────────────────────────────────
+/**
+ * Temporary route to seed admin from the browser (bypassing local network issues)
+ */
+const seedAdminEndpoint = async (req, res) => {
+  try {
+    const existing = await AdminUser.findOne({ email: 'president@shecanfoundation.org' });
+    if (existing) {
+      return res.status(200).json({ success: true, message: 'Admin user already exists! You can log in now.' });
+    }
+
+    await AdminUser.create({
+      username: 'She Can Admin',
+      email: 'president@shecanfoundation.org',
+      password: 'Admin@123',
+      role: 'superadmin',
+    });
+
+    res.status(200).json({ success: true, message: '✅ Admin user created successfully! You can now log in.' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { loginAdmin, loginValidation, getAdminProfile, logoutAdmin, seedAdminEndpoint };
