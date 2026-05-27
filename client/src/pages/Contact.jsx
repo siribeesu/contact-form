@@ -106,8 +106,8 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-          {/* ── Left: Contact Info ── */}
-          <div className="space-y-4 animate-fade-in">
+          {/* ── Left: Contact Info (Below form on mobile) ── */}
+          <div className="space-y-4 animate-fade-in order-2 lg:order-1">
             {contactInfo.map(({ icon: Icon, label, value, href, color }) => (
               <div key={label} className="card flex items-start gap-4 hover:shadow-glow transition-all duration-300">
                 <div className={`p-3 rounded-xl ${color} flex-shrink-0`}>
@@ -143,8 +143,8 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* ── Right: Contact Form ── */}
-          <div className="lg:col-span-2 animate-slide-up">
+          {/* ── Right: Contact Form (Above info on mobile) ── */}
+          <div className="lg:col-span-2 animate-slide-up order-1 lg:order-2">
             <div className="card">
 
               {/* Success Banner */}

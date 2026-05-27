@@ -133,9 +133,11 @@ const Home = () => {
             <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
               She Can Foundation is committed to creating positive change and empowering women in communities across India and the globe. We don't ask for much — just help us with what you can: be it money, skill, or your time. Join our team and be a part of an organization dedicated to creating a more equitable society, one woman at a time.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-              <span className="w-2 h-2 rounded-full bg-primary-500"></span>
-              Founded by <span className="text-primary-600 dark:text-primary-400 font-semibold ml-1">Reeta Mishra</span>, President & Founder, She Can Foundation
+            <div className="mt-6 flex items-start sm:items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+              <span className="w-2 h-2 rounded-full bg-primary-500 shrink-0 mt-1.5 sm:mt-0"></span>
+              <p className="leading-relaxed">
+                Founded by <span className="text-primary-600 dark:text-primary-400 font-semibold">Reeta Mishra</span>, President & Founder, She Can Foundation
+              </p>
             </div>
           </div>
         </div>
