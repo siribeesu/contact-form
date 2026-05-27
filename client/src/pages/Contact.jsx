@@ -100,7 +100,7 @@ const Contact = () => {
             Contact <span className="gradient-text">She Can Foundation</span>
           </h1>
           <p className="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-            Have a question, want to volunteer, or partner with She Can Foundation? We're a Govt. Registered NGO under the Indian Society Act, 1860. Reach out and we'll respond within 24–48 hours.
+            Have a question, want to volunteer, or partner with She Can Foundation? We're a Govt. Registered NGO under the Indian Society Act, 1860. Reach out and connect with us.
           </p>
         </div>
 
@@ -154,7 +154,7 @@ const Contact = () => {
                   <div>
                     <p className="font-semibold text-green-800 dark:text-green-300">Form Submitted Successfully!</p>
                     <p className="text-green-600 dark:text-green-400 text-sm">
-                      Thank you for reaching out. We'll get back to you within 24–48 hours.
+                      Thank you for reaching out.
                     </p>
                   </div>
                 </div>
