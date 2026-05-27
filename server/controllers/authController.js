@@ -24,9 +24,13 @@ const loginValidation = [
 const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    
+    // Sanitize inputs (fixes accidental copy-paste spaces)
+    const cleanEmail = email ? email.trim().toLowerCase() : '';
+    const cleanPassword = password ? password.trim() : '';
 
     // Find admin by email — select password explicitly since it's hidden by default
-    const admin = await AdminUser.findOne({ email }).select('+password');
+    const admin = await AdminUser.findOne({ email: cleanEmail }).select('+password');
 
     if (!admin) {
       return res.status(401).json({
@@ -36,7 +40,7 @@ const loginAdmin = async (req, res) => {
     }
 
     // Compare provided password with stored hash
-    const isMatch = await admin.matchPassword(password);
+    const isMatch = await admin.matchPassword(cleanPassword);
     if (!isMatch) {
       return res.status(401).json({
         success: false,
@@ -106,19 +110,19 @@ const logoutAdmin = (req, res) => {
  */
 const seedAdminEndpoint = async (req, res) => {
   try {
-    let admin = await AdminUser.findOne({ email: 'president@shecanfoundation.org' });
+    let admin = await AdminUser.findOne({ email: 'shecanfoundation@gmail.com' });
     
     if (admin) {
       // Force update the password in case it was created manually without hashing
-      admin.password = 'Admin@123';
+      admin.password = 'shecanfoundation';
       await admin.save();
-      return res.status(200).json({ success: true, message: '✅ Admin user already existed, but password has been successfully reset to Admin@123! You can log in now.' });
+      return res.status(200).json({ success: true, message: '✅ Admin user already existed, but password has been successfully reset to shecanfoundation! You can log in now.' });
     }
 
     await AdminUser.create({
       username: 'She Can Admin',
-      email: 'president@shecanfoundation.org',
-      password: 'Admin@123',
+      email: 'shecanfoundation@gmail.com',
+      password: 'shecanfoundation',
       role: 'superadmin',
     });
 

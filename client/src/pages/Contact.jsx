@@ -54,7 +54,7 @@ const FormField = ({ label, id, error, children }) => (
 
 // ── Contact Info Items ───────────────────────────────────────────────────────
 const contactInfo = [
-  { icon: HiMail, label: 'Email', value: 'president@shecanfoundation.org', href: 'mailto:president@shecanfoundation.org', color: 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400' },
+  { icon: HiMail, label: 'Email', value: 'shecanfoundation@gmail.com', href: 'mailto:shecanfoundation@gmail.com', color: 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400' },
   { icon: HiPhone, label: 'Phone', value: '+91-8283841830', href: 'tel:+918283841830', color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400' },
   { icon: HiLocationMarker, label: 'Website', value: 'shecanfoundation.org', href: 'https://shecanfoundation.org', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' },
 ];

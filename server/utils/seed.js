@@ -12,7 +12,7 @@ const seedAdmin = async () => {
     await connectDB();
 
     // Check if admin already exists
-    const existing = await AdminUser.findOne({ email: 'president@shecanfoundation.org' });
+    const existing = await AdminUser.findOne({ email: 'shecanfoundation@gmail.com' });
     if (existing) {
       console.log('⚠️  Admin user already exists. Skipping seed.');
       process.exit(0);
@@ -21,14 +21,14 @@ const seedAdmin = async () => {
     // Create default admin user
     const admin = await AdminUser.create({
       username: 'She Can Admin',
-      email: 'president@shecanfoundation.org',
-      password: 'Admin@123',  // Change this after first login!
+      email: 'shecanfoundation@gmail.com',
+      password: 'shecanfoundation',
       role: 'superadmin',
     });
 
     console.log(`✅ Admin user created successfully!`);
     console.log(`   Email: ${admin.email}`);
-    console.log(`   Password: Admin@123`);
+    console.log(`   Password: shecanfoundation`);
     console.log(`   ⚠️  Please change the password after first login!`);
     process.exit(0);
   } catch (error) {

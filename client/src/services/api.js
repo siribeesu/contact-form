@@ -3,8 +3,9 @@
 
 import axios from 'axios';
 
-// Base API URL from environment variable, or fallback based on environment
-const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:5000/api');
+// Force the API to ALWAYS use the current domain's /api endpoint
+// This completely prevents it from accidentally trying to hit a dead localhost server!
+const API_BASE_URL = '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

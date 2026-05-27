@@ -42,8 +42,22 @@ const AdminLogin = () => {
       toast.success(`Welcome back, ${result.admin.username}! 👋`);
       navigate('/admin/dashboard', { replace: true });
     } catch (error) {
-      const msg = error.response?.data?.message || 'Login failed. Please check your credentials.';
-      toast.error(msg);
+      let msg = 'Login failed. Please check your credentials.';
+      
+      // If there's no response at all (browser couldn't connect)
+      if (!error.response) {
+        msg = 'Network Error: Backend server is unreachable or offline.';
+      } 
+      // If Vite proxy fails or Vercel backend crashes (returns 504 or HTML)
+      else if (error.response.status === 504 || error.response.status === 500 || typeof error.response.data === 'string') {
+        msg = 'CRITICAL ERROR: The backend crashed! If you are on localhost, your local backend is dead. If you are on Vercel, Vercel is being blocked by MongoDB (Check Network Access 0.0.0.0/0).';
+      } 
+      // Standard backend JSON error
+      else if (error.response.data?.message) {
+        msg = error.response.data.message;
+      }
+      
+      toast.error(msg, { duration: 5000 });
     }
   };
 
@@ -80,7 +94,7 @@ const AdminLogin = () => {
                 <input
                   id="admin-email"
                   type="email"
-                  placeholder="admin@shecan.org"
+                  placeholder="shecanfoundation@gmail.com"
                   className={`input-field pl-10 ${errors.email ? 'border-red-400 focus:ring-red-400' : ''}`}
                   {...register('email')}
                 />
@@ -142,7 +156,7 @@ const AdminLogin = () => {
           <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800">
             <p className="text-xs text-blue-600 dark:text-blue-400">
               🔐 Default credentials after seeding: <br />
-              <strong>president@shecanfoundation.org</strong> / <strong>Admin@123</strong><br />
+              <strong>shecanfoundation@gmail.com</strong> / <strong>shecanfoundation</strong><br />
               <span className="text-blue-400 dark:text-blue-500">Change password after first login!</span>
             </p>
           </div>
