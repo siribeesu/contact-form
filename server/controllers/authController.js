@@ -106,9 +106,13 @@ const logoutAdmin = (req, res) => {
  */
 const seedAdminEndpoint = async (req, res) => {
   try {
-    const existing = await AdminUser.findOne({ email: 'president@shecanfoundation.org' });
-    if (existing) {
-      return res.status(200).json({ success: true, message: 'Admin user already exists! You can log in now.' });
+    let admin = await AdminUser.findOne({ email: 'president@shecanfoundation.org' });
+    
+    if (admin) {
+      // Force update the password in case it was created manually without hashing
+      admin.password = 'Admin@123';
+      await admin.save();
+      return res.status(200).json({ success: true, message: '✅ Admin user already existed, but password has been successfully reset to Admin@123! You can log in now.' });
     }
 
     await AdminUser.create({
