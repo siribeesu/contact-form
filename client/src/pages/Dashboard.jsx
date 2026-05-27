@@ -37,6 +37,7 @@ const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('messages');
   const [deleteTarget, setDeleteTarget] = useState(null); // id to delete
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [viewMessage, setViewMessage] = useState(null); // The message to view in full
   const searchTimer = useRef(null);
 
   // ── Fetch messages ──
@@ -363,15 +364,16 @@ const Dashboard = () => {
                             </td>
                             <td>
                               <div className="flex items-center gap-2">
-                                {!msg.isRead && (
                                   <button
-                                    onClick={() => handleMarkRead(msg._id)}
-                                    title="Mark as read"
+                                    onClick={() => {
+                                      setViewMessage(msg);
+                                      if (!msg.isRead) handleMarkRead(msg._id);
+                                    }}
+                                    title="View full message"
                                     className="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
                                   >
                                     <HiEye className="w-4 h-4" />
                                   </button>
-                                )}
                                 <button
                                   onClick={() => confirmDelete(msg._id)}
                                   title="Delete message"
@@ -478,6 +480,62 @@ const Dashboard = () => {
         title="Delete Message?"
         message="This will permanently delete the contact message. This action cannot be undone."
       />
+
+      {/* View Message Modal */}
+      {viewMessage && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white dark:bg-dark-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-slide-up">
+            <div className="flex justify-between items-center p-5 border-b border-gray-100 dark:border-gray-700">
+              <h3 className="font-heading font-bold text-lg text-gray-900 dark:text-white flex items-center gap-2">
+                <HiMail className="text-primary-500 w-5 h-5" />
+                Message Details
+              </h3>
+              <button 
+                onClick={() => setViewMessage(null)}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <HiX className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+              <div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">From</p>
+                <p className="font-medium text-gray-900 dark:text-white">{viewMessage.name} <span className="text-gray-500 dark:text-gray-400 font-normal">({viewMessage.email})</span></p>
+                {viewMessage.phone && <p className="text-sm text-gray-500 dark:text-gray-400">{viewMessage.phone}</p>}
+              </div>
+              
+              <div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Date</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  {new Date(viewMessage.createdAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Subject</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">{viewMessage.subject}</p>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Message</p>
+                <div className="p-4 bg-gray-50 dark:bg-dark-900 rounded-xl text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed border border-gray-100 dark:border-gray-700">
+                  {viewMessage.message}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-dark-800 flex justify-end">
+              <button 
+                onClick={() => setViewMessage(null)}
+                className="btn btn-primary"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
